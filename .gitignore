@@ -1,6 +1,7 @@
 target/
 pom.xml.tag
 pom.xml.releaseBackup
+
 pom.xml.versionsBackup
 pom.xml.next
 release.properties
@@ -10,3 +11,8 @@ buildNumber.properties
 /.idea/
 /webProxy.iml
 /target/
+
+src/main/java/md/utm/fi/proxy/
+src/main/java/md/utm/fi/sincroniseServices/
+src/main/resources/
+src/test/
