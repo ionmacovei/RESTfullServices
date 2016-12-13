@@ -28,7 +28,6 @@ public class EmployeeController {
         jsonObject.put("Name", "ion");
         jsonObject.put("salary", 10000);
 
-        String result = "@Produces(\"application/json\") Output: \n\nF to C Converter Output: \n\n" + jsonObject;
         try {
             return Response.status(200).entity(mapper.writeValueAsString(serializeObjects(employeeDAO.getFromDB("employees")))).build();
         } catch (JsonProcessingException e) {
@@ -44,12 +43,22 @@ public class EmployeeController {
     public Response save(String emp) {
 
         String result = "Employee saved : " + emp;
+        //employeeDAO.insertToDB("employee",deserializeObjects());
         deserializeObjects(emp);
         System.out.println(emp.toString());
         System.out.println(result);
 
         return Response.status(201).entity(result).build();
 
+    }
+    @DELETE
+    @Path("/delete/{firstName}")
+    @Consumes("application/json")
+    @Produces("application/json")
+    public Response deleteEmployee(@PathParam("firstName") String firtstName ){
+        employeeDAO.deleteEmploye(firtstName);
+
+        return Response.status(201).build();
     }
 
 }

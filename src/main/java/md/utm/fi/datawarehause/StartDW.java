@@ -10,10 +10,10 @@ public class StartDW {
     public static void main(String[] args){
         EmployeeDAO dao = new EmployeeDAO();
 
-        Employee emp = new Employee("jet", "cheanisie", "comedy", 1000);
-        dao.insertToDB("employees",emp);
-        dao.getFromDB("employees");
-        //new JerseyServer(8085).run();
+        //Employee emp = new Employee("jet", "cheanisie", "comedy", 1000);
+       // dao.insertToDB("employees",emp);
+       // dao.getFromDB("employees");
+        new JerseyServer(8085).run();
 
     }
 }

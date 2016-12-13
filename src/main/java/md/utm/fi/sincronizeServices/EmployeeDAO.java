@@ -10,6 +10,8 @@ import md.utm.fi.model.Employee;
 import java.io.IOException;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+import com.mongodb.MongoClient;
+
 
 import static md.utm.fi.sincronizeServices.SerializationServices.*;
 
@@ -55,7 +57,15 @@ public class EmployeeDAO {
             employeesList.add(emp);
         }
         String json = serializeObjects(employeesList);
-        System.out.println(json);
+       // System.out.println(json);
         return employeesList;
+    }
+
+    public boolean deleteEmploye(String firstName){
+        DBCollection collection = getConnection().getCollection("employee");
+        BasicDBObject document = new BasicDBObject();
+        document.put("firstName", firstName);
+        collection.remove(document);
+       return  false;
     }
 }
