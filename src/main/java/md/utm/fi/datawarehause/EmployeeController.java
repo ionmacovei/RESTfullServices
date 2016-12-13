@@ -45,6 +45,8 @@ public class EmployeeController {
         String result = "Employee saved : " + emp;
         //employeeDAO.insertToDB("employee",deserializeObjects());
         deserializeObjects(emp);
+
+
         System.out.println(emp.toString());
         System.out.println(result);
 
