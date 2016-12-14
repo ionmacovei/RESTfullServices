@@ -1,9 +1,11 @@
 package md.utm.fi.sincronizeServices;
 
 import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import md.utm.fi.model.Employee;
+import md.utm.fi.model.User;
+
 
 import java.io.IOException;
 
@@ -13,6 +15,7 @@ import java.io.IOException;
 public class SerializationServices {
     public  static String serializeObjects(Object objToString) {
         ObjectMapper mapper = new ObjectMapper();
+        mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
         try {
             String jsonInString = mapper.writeValueAsString(objToString);
             return jsonInString;
@@ -25,13 +28,13 @@ public class SerializationServices {
         }
         return null;
     }
-    public static Employee deserializeObjects(String employeeInString) {
+    public static User deserializeObjects(String employeeInString) {
         ObjectMapper  mapper = new ObjectMapper();
-
-        Employee employee = null;
+        mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+        User user = null;
         try {
-            employee = mapper.readValue(employeeInString,Employee.class);
-            return employee;
+            user = mapper.readValue(employeeInString,User.class);
+            return user;
         } catch (IOException e) {
             e.printStackTrace();
         }

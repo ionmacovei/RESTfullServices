@@ -1,7 +1,6 @@
 package md.utm.fi.model;
 
 
-
 import javax.persistence.Id;
 import javax.xml.bind.annotation.XmlElement;
 import java.io.Serializable;
@@ -9,29 +8,30 @@ import java.io.Serializable;
 /**
  * Created by imacovei on 12.12.2016.
  */
-public class Employee implements Serializable {
+public class User implements Serializable {
     private static final long serialVersionUID = 1L;
+
     private String id;
     private String firstName;
     private String lastName;
-    private String department;
-    private Integer salary;
+    private String username;
+    private String password;
 
-    public Employee(String id, String firstName, String lastName, String departament, Integer salary) {
+    public User(String id, String firstName, String lastName, String username, String password) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.department = departament;
-        this.salary = salary;
+        this.username = username;
+        this.password = password;
     }
 
-    public Employee() {
+    public User() {
     }
 
     public String getId() {
-        return id;
+        return this.id;
     }
-   @Id
+
     public void setId(String id) {
         this.id = id;
     }
@@ -40,7 +40,6 @@ public class Employee implements Serializable {
         return firstName;
     }
 
-    @XmlElement(name = "firstName")
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
@@ -49,36 +48,34 @@ public class Employee implements Serializable {
         return lastName;
     }
 
-    @XmlElement(name = "lastName")
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
 
-    public String getDepartment() {
-        return department;
+    public String getUsername() {
+        return username;
     }
 
-    @XmlElement(name = "departament")
-    public void setDepartment(String department) {
-        this.department = department;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public Integer getSalary() {
-        return salary;
+    public String getPassword() {
+        return password;
     }
 
-    @XmlElement(name = "salary")
-    public void setSalary(Integer salary) {
-        this.salary = salary;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @Override
     public String toString() {
-        return "Employee{" +
+        return "User{" +
+                "id=" + id + '\'' +
                 "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", department='" + department + '\'' +
-                ", salary=" + salary +
+                ", password='" + username + '\'' +
+                ", password=" + password +
                 '}';
     }
 }
