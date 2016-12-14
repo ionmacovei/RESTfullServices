@@ -24,10 +24,6 @@ public class EmployeeController {
     @Produces(MediaType.APPLICATION_JSON)
     public Response convertFtoC() {
         ObjectMapper mapper = new ObjectMapper();
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("Name", "ion");
-        jsonObject.put("salary", 10000);
-
         try {
             return Response.status(200).entity(mapper.writeValueAsString(serializeObjects(employeeDAO.getFromDB("employees")))).build();
         } catch (JsonProcessingException e) {
@@ -43,10 +39,7 @@ public class EmployeeController {
     public Response save(String emp) {
 
         String result = "Employee saved : " + emp;
-        //employeeDAO.insertToDB("employee",deserializeObjects());
-        deserializeObjects(emp);
-
-
+        employeeDAO.insertToDB(deserializeObjects(emp));
         System.out.println(emp.toString());
         System.out.println(result);
 
@@ -62,5 +55,20 @@ public class EmployeeController {
 
         return Response.status(201).build();
     }
+    @OPTIONS
+    @Path("/get/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getByID(@PathParam("id") String id ) {
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            String result =mapper.writeValueAsString(serializeObjects(employeeDAO.getEmployeeByID(id)));
+            return Response.status(200).entity(result).build();
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return Response.status(404).build();
+    }
+
+
 
 }

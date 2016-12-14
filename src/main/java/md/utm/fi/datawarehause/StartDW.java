@@ -14,6 +14,6 @@ public class StartDW {
        // dao.insertToDB("employees",emp);
        // dao.getFromDB("employees");
         new JerseyServer(8085).run();
-
+         //dao.deleteAllEmployees();
     }
 }
