@@ -30,6 +30,7 @@ public class UserDAO {
     public void insertToDB(User user) {
 
         JacksonDBCollection<User, String> coll = JacksonDBCollection.wrap(getConnection().getCollection("users"), User.class, String.class);
+        user.setId(getMaxId()+1);
         coll.insert(user);
         System.out.println("Document inserted successfully");
     }
@@ -42,7 +43,7 @@ public class UserDAO {
         DBCursor cursor = coll.find();
         while (cursor.hasNext()) {
             DBObject dbObj = cursor.next();
-            String id=(String) dbObj.get("id");
+            Integer id=(Integer) dbObj.get("id");
             String firstName = (String) dbObj.get("firstName");
             String lastName = (String) dbObj.get("lastName");
             String username = (String) dbObj.get("username");
@@ -67,7 +68,7 @@ public class UserDAO {
         BasicDBObject document = new BasicDBObject();
         document.put("id", Id);
         DBObject empob = collection.findOne(document);
-        String id=(String) empob.get("id");
+        Integer id=(Integer) empob.get("id");
         String firstName=(String) empob.get("firstName");
         String lastName=(String) empob.get("lastName");
         String username=(String) empob.get("username");
@@ -80,6 +81,18 @@ public class UserDAO {
         DBCollection collection = getConnection().getCollection("users");
         collection.drop();
         return true;
+    }
+    public Integer getMaxId(){
+        DBObject sort = new BasicDBObject();
+        Integer id=0;
+        sort.put("id", -1);
+       DBCursor cursor=getConnection().getCollection("users").find().sort(sort).limit(1);
+        while (cursor.hasNext()) {
+
+            id = (Integer) (cursor.next().get("id"));
+        }
+        return id;
+
     }
 
 }

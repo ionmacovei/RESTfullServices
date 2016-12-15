@@ -11,13 +11,13 @@ import java.io.Serializable;
 public class User implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    private String id;
+    private Integer id;
     private String firstName;
     private String lastName;
     private String username;
     private String password;
 
-    public User(String id, String firstName, String lastName, String username, String password) {
+    public User(Integer id, String firstName, String lastName, String username, String password) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -28,11 +28,11 @@ public class User implements Serializable {
     public User() {
     }
 
-    public String getId() {
+    public Integer getId() {
         return this.id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
