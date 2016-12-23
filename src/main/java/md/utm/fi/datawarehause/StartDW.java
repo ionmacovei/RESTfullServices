@@ -13,7 +13,8 @@ public class StartDW {
 
         //User emp = new User("emp4","jet", "cheanisie", "liee", "emp4");
         //dao.insertToDB(emp);
-      // System.out.println(dao.getFromDB("users"));
+       // dao.deleteEmploye(3);
+       //System.out.println(dao.getFromDB("users"));
         //dao.deleteAllEmployees();
         new JerseyServer(8085).run();
         //  dao.getMaxId();

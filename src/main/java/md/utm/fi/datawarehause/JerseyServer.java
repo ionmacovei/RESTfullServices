@@ -3,6 +3,7 @@ package md.utm.fi.datawarehause;
 import com.sun.jersey.api.container.httpserver.HttpServerFactory;
 import com.sun.jersey.api.core.PackagesResourceConfig;
 import com.sun.jersey.api.core.ResourceConfig;
+//import com.sun.jersey.json.impl.provider.entity.JSONArrayProvider;
 import com.sun.net.httpserver.HttpServer;
 
 import javax.ws.rs.core.UriBuilder;
@@ -23,6 +24,7 @@ public class JerseyServer implements Runnable {
 
     private static HttpServer createHttpServer() throws IOException {
         ResourceConfig config = new PackagesResourceConfig("md.utm.fi.datawarehause");
+
         return HttpServerFactory.create(getURI(), config);
     }
 

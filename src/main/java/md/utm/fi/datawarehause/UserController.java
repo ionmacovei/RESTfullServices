@@ -2,6 +2,7 @@ package md.utm.fi.datawarehause;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import md.utm.fi.model.User;
 import md.utm.fi.sincronizeServices.*;
 
 import javax.ws.rs.*;
@@ -16,55 +17,66 @@ import static md.utm.fi.sincronizeServices.SerializationServices.*;
 
 @Path("/resources")
 public class UserController {
-  UserDAO userDAO = new UserDAO();
+    UserDAO userDAO = new UserDAO();
+
+
+   /* @GET
+    @Path(value = "/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getByUserName(@PathParam("id") String id) {
+
+        try {
+            System.out.println("Request get by username");
+            return Response.status(200).entity(userDAO.getEmployeeByID(id)).build();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return Response.status(404).build();
+    }*/
+
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response convertFtoC() {
-        ObjectMapper mapper = new ObjectMapper();
         try {
-            String result=mapper.writeValueAsString(serializeObjects(userDAO.getFromDB("users")));
-            return Response.status(200).entity(result).build();
-        } catch (JsonProcessingException e) {
+            return Response.status(200).entity(userDAO.getFromDB("users")).build();
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return Response.status(404).build();
     }
 
-    @PUT
+    @POST
     @Consumes("application/json")
     @Produces("application/json")
-    public Response save(String emp) {
+    public Response save(User emp) {
 
+        System.out.println();
         String result = "User saved : " + emp;
-        userDAO.insertToDB(deserializeObjects(emp));
+        userDAO.insertToDB(emp);
         System.out.println(emp.toString());
-        System.out.println(result);
-
-        return Response.status(201).entity(result).build();
+        return Response.status(201).build();
 
     }
+
     @DELETE
     @Path("/{id}")
     @Consumes("application/json")
     @Produces("application/json")
-    public Response deleteEmployee(@PathParam("id") String firtstName ){
-        userDAO.deleteEmploye(firtstName);
+    public Response deleteEmployee(@PathParam("id") Integer id) {
+        userDAO.deleteEmploye(id);
         return Response.status(201).build();
     }
-    @OPTIONS
-    @Path("/{id}")
+
+    @GET
+    @Path("/{username}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getByID(@PathParam("id") String id ) {
-        ObjectMapper mapper = new ObjectMapper();
+    public Response getByUsername(@PathParam("username") String userName) {
         try {
-            String result =mapper.writeValueAsString(serializeObjects(userDAO.getEmployeeByID(id)));
-            return Response.status(200).entity(result).build();
-        } catch (JsonProcessingException e) {
+            System.out.println("Request get by username");
+            return Response.status(200).entity(userDAO.getEmployeeByUsername(userName)).build();
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return Response.status(404).build();
     }
-
-
-
 }

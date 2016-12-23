@@ -54,16 +54,16 @@ public class UserDAO {
         return usersList;
     }
 
-    public boolean deleteEmploye(String id) {
+    public boolean deleteEmploye(Integer id) {
         DBCollection collection = getConnection().getCollection("users");
         BasicDBObject document = new BasicDBObject();
-        document.put("id", id);
-        collection.remove(document);
-        return false;
+        //document.put("id", id);
+        //DBObject doc =collection.findOne(document);
+        collection.remove(new BasicDBObject().append("id", id));
+        return true;
     }
 
     public User getEmployeeByID(String Id) {
-        //JacksonDBCollection<User, String> coll = JacksonDBCollection.wrap(getConnection().getCollection("users"), User.class, String.class);
         DBCollection collection = getConnection().getCollection("users");
         BasicDBObject document = new BasicDBObject();
         document.put("id", Id);
@@ -74,6 +74,19 @@ public class UserDAO {
         String username=(String) empob.get("username");
         String password =(String) empob.get("password");
         User user = new User(id,firstName,lastName,username,password);
+        return user;
+    }
+    public User getEmployeeByUsername(String username) {
+        DBCollection collection = getConnection().getCollection("users");
+        BasicDBObject document = new BasicDBObject();
+        document.put("username", username);
+        DBObject empob = collection.findOne(document);
+        Integer id=(Integer) empob.get("id");
+        String firstName=(String) empob.get("firstName");
+        String lastName=(String) empob.get("lastName");
+        String username1=(String) empob.get("username");
+        String password =(String) empob.get("password");
+        User user = new User(id,firstName,lastName,username1,password);
         return user;
     }
 
