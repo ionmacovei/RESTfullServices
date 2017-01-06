@@ -18,12 +18,14 @@ import java.net.UnknownHostException;
 public class JerseyServer implements Runnable {
 
     private static Integer port;
-    public JerseyServer(Integer port) {
+    private static String  packegeConfig;
+    public JerseyServer(Integer port, String packegeConfig) {
         this.port = port;
+        this.packegeConfig=packegeConfig;
     }
 
     private static HttpServer createHttpServer() throws IOException {
-        ResourceConfig config = new PackagesResourceConfig("md.utm.fi.datawarehause");
+        ResourceConfig config = new PackagesResourceConfig(packegeConfig);
 
         return HttpServerFactory.create(getURI(), config);
     }

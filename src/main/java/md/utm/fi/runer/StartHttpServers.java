@@ -1,12 +1,13 @@
-package md.utm.fi.datawarehause;
+package md.utm.fi.runer;
 
+import md.utm.fi.datawarehause.JerseyServer;
 import md.utm.fi.model.User;
 import md.utm.fi.sincronizeServices.UserDAO;
 
 /**
  * Created by imacovei on 12.12.2016.
  */
-public class StartDW {
+public class StartHttpServers {
     public static void main(String[] args){
         UserDAO dao = new UserDAO();
 

@@ -19,8 +19,8 @@ import static md.utm.fi.sincronizeServices.SerializationServices.*;
 public class UserController {
     UserDAO userDAO = new UserDAO();
 
-
-   /* @GET
+/*
+     @GET
     @Path(value = "/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getByUserName(@PathParam("id") String id) {
