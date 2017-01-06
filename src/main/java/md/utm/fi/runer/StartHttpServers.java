@@ -16,7 +16,8 @@ public class StartDW {
        // dao.deleteEmploye(3);
        //System.out.println(dao.getFromDB("users"));
         //dao.deleteAllEmployees();
-        new JerseyServer(8085).run();
+        new JerseyServer(8085,"md.utm.fi.datawarehause").run();
+        new JerseyServer(8090,"md.utm.fi.proxy").run();
         //  dao.getMaxId();
     }
 }
