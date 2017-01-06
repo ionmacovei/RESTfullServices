@@ -36,7 +36,7 @@ public class UserController {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response convertFtoC() {
+    public Response getUsers() {
         try {
             return Response.status(200).entity(userDAO.getFromDB("users")).build();
         } catch (Exception e) {
@@ -48,7 +48,7 @@ public class UserController {
     @POST
     @Consumes("application/json")
     @Produces("application/json")
-    public Response save(User emp) {
+    public Response saveUser(User emp) {
 
         System.out.println();
         String result = "User saved : " + emp;
@@ -62,7 +62,7 @@ public class UserController {
     @Path("/{id}")
     @Consumes("application/json")
     @Produces("application/json")
-    public Response deleteEmployee(@PathParam("id") Integer id) {
+    public Response deleteUser(@PathParam("id") Integer id) {
         userDAO.deleteEmploye(id);
         return Response.status(201).build();
     }
