@@ -28,11 +28,8 @@ public class ProxyController {
     @Path(value = "/{username}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getByUserName(@PathParam("username") String username) {
-        ClientConfig cfg = new DefaultClientConfig();
-        cfg.getClasses().add(JacksonJsonProvider.class);
-        Client client = Client.create(cfg);
-        WebResource apiRoot = client.resource("http://localhost:" + 8085);
-        User user = apiRoot.path("resources/"+username).get(User.class);
+
+        User user = getConfigurationResurce(8085).path(username).get(User.class);
         System.out.println(user.toString());
         try {
             System.out.println("Request get by username");
@@ -45,7 +42,7 @@ public class ProxyController {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getUsers() {
-        List<User> users = getConfigurationResurce(8085, "resources").get(new GenericType<List<User>>() {});
+        List<User> users = getConfigurationResurce(8085).get(new GenericType<List<User>>() {});
         try {
             return Response.status(200).entity(users).build();
         } catch (Exception e) {
@@ -54,13 +51,11 @@ public class ProxyController {
         return Response.status(404).build();
     }
 
-
-
-    public WebResource getConfigurationResurce(Integer port, String path) {
+    public WebResource getConfigurationResurce(Integer port) {
         ClientConfig cfg = new DefaultClientConfig();
         cfg.getClasses().add(JacksonJsonProvider.class);
         Client client = Client.create(cfg);
-        WebResource apiRoot = client.resource("http://localhost:" + port+"/resources/"+path);
+        WebResource apiRoot = client.resource("http://localhost:" + port+"/resources/");
         return apiRoot;
     }
 
