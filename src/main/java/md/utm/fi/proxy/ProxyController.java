@@ -24,6 +24,7 @@ import java.util.logging.Logger;
 @Path("/users")
 public class ProxyController {
     final static Logger logger = Logger.getAnonymousLogger();
+    public String  keyPath= "http://localhost:8090/users";
 
     @GET
     @Path(value = "/{username}")
