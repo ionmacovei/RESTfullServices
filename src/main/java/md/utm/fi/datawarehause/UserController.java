@@ -15,7 +15,7 @@ import static md.utm.fi.sincronizeServices.SerializationServices.*;
  * Created by imacovei on 12.12.2016.
  */
 
-@Path("/resources")
+@Path("/users")
 public class UserController {
     UserDAO userDAO = new UserDAO();
 

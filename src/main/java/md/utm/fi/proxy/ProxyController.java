@@ -21,7 +21,7 @@ import java.util.logging.Logger;
 /**
  * Created by imacovei on 1/5/2017.
  */
-@Path("/resources")
+@Path("/users")
 public class ProxyController {
     final static Logger logger = Logger.getAnonymousLogger();
 
@@ -31,9 +31,9 @@ public class ProxyController {
     public Response getByUserName(@PathParam("username") String username) {
 
         User user = getConfigurationResurce().path(username).get(User.class);
-        System.out.println(user.toString());
+       // System.out.println(user.toString());
         try {
-            System.out.println("Request get by username");
+          //  System.out.println("Request get by username");
             return Response.status(200).entity(user).build();
         } catch (Exception e) {
             e.printStackTrace();
@@ -80,7 +80,7 @@ public class ProxyController {
         ClientConfig cfg = new DefaultClientConfig();
         cfg.getClasses().add(JacksonJsonProvider.class);
         Client client = Client.create(cfg);
-        WebResource apiRoot = client.resource("http://localhost:" + getDWport() + "/resources/");
+        WebResource apiRoot = client.resource("http://localhost:" + getDWport() + "/users/");
         return apiRoot;
     }
 
