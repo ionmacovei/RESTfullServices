@@ -6,7 +6,7 @@ Elaborarea și implementarea a sistemului proxy
 
 ### Prerequisites
 
-- VCS (Version Control System) Git - vezi [info din procesul de susținere](submission-process.md);
+- VCS (Version Control System) Git - vezi [ info din procesul de susținere](submission-process.md);
 - Cunoștințe despre:
     - HTTP
     - Caching
