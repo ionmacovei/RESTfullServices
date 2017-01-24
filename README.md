@@ -19,7 +19,7 @@ Elaborarea și implementarea a sistemului proxy
     - Implementarea mecanismului de caching,
     - Implementarea mecanismului de load-balancing,
     - Elaborarea sincronizării datelor (distribuirea în date) între nodurile **data-warehouse**
-(utilizînd un (S)DBMS existent).
+(utilizînd un (S)DBMS existent)..
 
 ## Built With
 * [Maven](https://maven.apache.org/) - Dependency Management
