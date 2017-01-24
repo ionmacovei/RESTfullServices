@@ -9,6 +9,7 @@ import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.client.config.ClientConfig;
 import com.sun.jersey.api.client.config.DefaultClientConfig;
 import md.utm.fi.model.User;
+import md.utm.fi.sincronizeServices.SerializationServices;
 //import org.apache.log4j.Logger;
 
 import javax.ws.rs.*;
@@ -30,27 +31,44 @@ public class ProxyController {
     @Path(value = "/{username}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getByUserName(@PathParam("username") String username) {
+         String keyPathUser=keyPath+"/"+username;
+        if(CachingUtils.getUserFromChache(keyPathUser)!=null){
+           User user=CachingUtils.getUserFromChache(keyPathUser);
+           return Response.status(200).entity(user).build();
 
-        User user = getConfigurationResurce().path(username).get(User.class);
+        }else{
+            User user = getConfigurationResurce().path(username).get(User.class);
+            CachingUtils.setUsersInCache(keyPathUser,user);
+            return Response.status(200).entity(user).build();
+        }
+        //User user = getConfigurationResurce().path(username).get(User.class);
        // System.out.println(user.toString());
-        try {
+       /* try {
           //  System.out.println("Request get by username");
             return Response.status(200).entity(user).build();
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        return Response.status(404).build();
+        }*/
+       // return Response.status(404).build();
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getUsers() {
-        List<User> users = getConfigurationResurce().get(new GenericType<List<User>>() {
-        });
-        try {
+
+        if (CachingUtils.getUsersListFromChache(keyPath)!=null){
+            List<User> users=CachingUtils.getUsersListFromChache(keyPath);
             return Response.status(200).entity(users).build();
-        } catch (Exception e) {
-            e.printStackTrace();
+        }
+        else{
+            try {
+                List<User> users = getConfigurationResurce().get(new GenericType<List<User>>(){});
+                CachingUtils.setUsersInCache(keyPath, users);
+                return Response.status(200).entity(users).build();
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         return Response.status(404).build();
     }
